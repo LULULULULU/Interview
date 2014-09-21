@@ -73,13 +73,18 @@ public class BinaryTree {
     if ( node.right != null )
       resultRight = commonAncestor(node.right, a, b, 0);
 
+    if (resultLeft.node != null)
+      return resultLeft;
+    if (resultRight.node != null)
+      return resultRight;
+
     Result r = new Result();
     r.currentFound = currentFound + resultLeft.currentFound + resultRight.currentFound;
 
     if ((resultLeft.currentFound + resultRight.currentFound) >= 2) {
       System.out.println("Found :(" + resultLeft.currentFound + ", " + resultRight.currentFound + ") at " + node.data);
       r.node = node;
-      // r.currentFound = 0;
+      r.currentFound = 100;
     }
     else {
       r.node = null;
@@ -116,11 +121,7 @@ public class BinaryTree {
     System.out.println("------BFS-------");
     tree.BFSTraverse();
     System.out.println("------commonAncestor-------");
-    System.out.println("CA: " + tree.commonAncestor(0, 2).data);
-
-
-
-
+    System.out.println("CA: " + tree.commonAncestor(3, 7).data);
   }
 
 }
