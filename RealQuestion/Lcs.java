@@ -68,7 +68,7 @@ public class Lcs {
     {
       switch (v.direction) {
         case UPLEFT:
-          sb.append(a.charAt(i-1));   // StringBuffer append(char, boolean, char[], )
+          sb.append(a.charAt(i-1));   // StringBuffer append(char, boolean, char[], ....)
                                       // Notice the i-1 here.
           v = m[--i][--j];
           count++;
