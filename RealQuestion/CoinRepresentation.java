@@ -4,7 +4,11 @@ public class CoinRepresentation {
 
   public CoinRepresentation(int[] coins) {
     this.coins = coins;
-    // array.length
+    /* -----------
+
+    array.length
+
+    ------------- */
     this.types = coins.length;
   }
 
@@ -24,7 +28,7 @@ public class CoinRepresentation {
       }
       else {
       // if moneyLeft cannot be divided by cC.
-        System.out.println("No problem.");
+        System.out.println("No solution.");
         return 0;
       }
     }
@@ -40,6 +44,56 @@ public class CoinRepresentation {
     }
   }
 
+
+  public void getCasesRecursive(int moneyLeft, int currentCoinType, int[] solution) {
+    int currentCoin, currentCoinMax;
+    // When currentCoinType = last type,
+    if (currentCoinType == this.types - 1) {
+      // If moneyLeft can be divided by current currentCoin, we have a solution
+      currentCoin = this.coins[currentCoinType];
+      if (moneyLeft % currentCoin == 0) {
+        solution[currentCoinType] = moneyLeft / currentCoin;
+
+        System.out.print("~> ");
+        for (int i = 0; i < this.types; i++ ) {
+          //"~> 25 * n + 25 * n"
+          System.out.print(this.coins[i]);
+          System.out.print("*");
+          System.out.print(solution[i]);
+          if (i != this.types-1) {
+            System.out.print(" + ");
+          }
+        }
+        System.out.println();
+      }
+      else {
+        // if moneyLeft cannot be divided by cC.
+        System.out.println("No solution.");
+        return;
+      }
+    }
+    else {
+      // if there is a new type to go
+      currentCoin = this.coins[currentCoinType];
+      currentCoinMax = moneyLeft / currentCoin;
+      for (int i = currentCoinMax; i >= 0; i--) {
+        int[] newArray = new int[this.types];
+        /* -----------
+
+         arraycopy(Object src, int srcPos,
+                             Object dest, int destPos, int length)
+
+                             ------------- */
+        System.arraycopy(solution, 0, newArray, 0, 4);
+
+        newArray[currentCoinType] = i;
+        getCasesRecursive(moneyLeft - currentCoin * i, currentCoinType+1, newArray);
+      }
+
+    }
+
+  }
+
   public static void main(String[] args) {
     int[] array = {25, 10, 5, 1};  // Init new array {}
     CoinRepresentation cr = new CoinRepresentation(array);
@@ -49,5 +103,13 @@ public class CoinRepresentation {
     System.out.println(cr.getNumberRecursive(4,0));
     System.out.println(cr.getNumberRecursive(5,0));
     System.out.println(cr.getNumberRecursive(6,0));
+
+    System.out.println("------------ 25 ---------------");
+    int[] newArray = {0, 0, 0, 0};
+    cr.getCasesRecursive(25,0,newArray);
+
+    System.out.println("------------ 100 ---------------");
+    int[] newArray1 = {0, 0, 0, 0};
+    cr.getCasesRecursive(100,0,newArray1);
   }
 }
