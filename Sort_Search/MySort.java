@@ -146,6 +146,10 @@ public class MySort {
     sort.quickSort(array1);
     MySort.printIntArray(array1);
 
+    int[] array1_1 = {1,4,6,4,7,9,4,7,4,2,5,0,6,7,9,6,8,9,5,3,4,6,3,6,8,4,6,8,5,3,7,4,9,3,7,4,8,9,3,6,3,5,7,4,2,5,7,8,9,5,3,2};
+    Arrays.sort(array1_1);
+    MySort.printIntArray(array1_1);
+
     String[] array2 = {"a", "ab", "baba", "abab", "ba", "fasdf", "bbaa", "ovis", "kayak", "vios", "asdf", "fasfs"};
     /*-----
     Difference between inner class & static nested class.

@@ -1,4 +1,5 @@
-// Sorting and search 11.8
+// Chapter 11 Sorting and Searching
+// Question 11.8
 
 public class NumberRankSearch {
   public NumberRankTree tree;

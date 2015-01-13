@@ -61,6 +61,9 @@ public class BinaryTree {
     }
   }
 
+  // Idea is find value a and b from each node's left and right sub tree recursively.
+  // If found a value on one node or one sub tree, add 1 to the node's currentFound
+  // Until found the first node that has currentFound equal to 2
   private Result commonAncestor(BinaryTreeNode node, int a, int b, int currentFound) {
     if (node.data == a || node.data == b) {
       currentFound++;
@@ -121,7 +124,11 @@ public class BinaryTree {
     System.out.println("------BFS-------");
     tree.BFSTraverse();
     System.out.println("------commonAncestor-------");
-    System.out.println("CA: " + tree.commonAncestor(3, 7).data);
+    System.out.println("CA: " + tree.commonAncestor(6, 13).data);
   }
 
+//            0
+//       1           2
+//    3    4      5      6
+//   7 8  9 10  11 12  13 14
 }

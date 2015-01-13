@@ -1,3 +1,6 @@
+// Chapter 11 Sorting and Searching
+// Question 11.7
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -99,6 +102,7 @@ public class CircusPeopleTower {
     CircusPeopleTower cpt = new CircusPeopleTower();
     ArrayList<CircusPerson> r = cpt.highestTowerDP(circusPeople);
 
+    System.out.println("Done!");
     CircusPeopleTower.printCircusPersonArray(r);
   }
 }
