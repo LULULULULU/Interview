@@ -1,33 +1,29 @@
-//
-// LRU泛型支持的Cache
-// *非线程安全 http://www.cnblogs.com/lzrabbit/p/3734850.html#f2
-//
-// 其他实现: http://www.lvcy.net/?post=146
+// https://oj.leetcode.com/problems/lru-cache/
 //
 
 import java.util.HashMap;
 
-public class LRUCacheGeneric<K, V> {
+public class LRUCache {
 
-  private Entry<K, V> first;
-  private Entry<K, V> last;
+  private Entry first;
+  private Entry last;
   private final int MAX_CACHE_SIZE;
-  private HashMap<K, Entry<K, V>> hashMap;
+  private HashMap<Integer, Entry> hashMap;
 
-  public LRUCacheGeneric(int capacity) {
+  public LRUCache(int capacity) {
     MAX_CACHE_SIZE = capacity;
-    hashMap = new HashMap<K, Entry<K,V>>();
+    hashMap = new HashMap<Integer, Entry>();
   }
 
-  public V get(K key) {
-    Entry<K, V> entry = getEntry(key);
-    if (entry == null) return null;
+  public int get(int key) {
+    Entry entry = getEntry(key);
+    if (entry == null) return -1;
     moveToFirst(entry);
     return entry.value;
   }
 
-  public void put(K key, V value) {
-    Entry<K, V> entry = getEntry(key);
+  public void set(int key, int value) {
+    Entry entry = getEntry(key);
     if (entry == null) {
       if (hashMap.size() >= MAX_CACHE_SIZE) {
         hashMap.remove(last.key);
@@ -42,7 +38,7 @@ public class LRUCacheGeneric<K, V> {
   }
 
 
-  private void moveToFirst(Entry<K, V> entry) {
+  private void moveToFirst(Entry entry) {
     if (first == entry) return;
     if (entry.pre != null) entry.pre.next = entry.next;
     if (entry.next != null) entry.next.pre = entry.pre;
@@ -69,23 +65,28 @@ public class LRUCacheGeneric<K, V> {
     }
   }
 
-  private Entry<K, V> getEntry(K key) {
+  private Entry getEntry(int key) {
     return hashMap.get(key);
   }
 
-  class Entry<K, V> {
-    Entry<K, V> next;
-    Entry<K, V> pre;
-    K key;
-    V value;
+  class Entry {
+    Entry next;
+    Entry pre;
+    int key;
+    int value;
   }
+
+
+  /*-----*/
+  /*-- Test Code ---*/
+  /*-----*/
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     Entry entry = first;
     while (entry != null) {
-      sb.append(String.format("%s:%s ", entry.key, entry.value));
+      sb.append(String.format("%d:%d ", entry.key, entry.value));
       entry = entry.next;
     }
     return sb.toString();
@@ -94,18 +95,36 @@ public class LRUCacheGeneric<K, V> {
   public static void main(String[] args) {
     System.out.println();
     System.out.println("===========================LRU 链表实现===========================");
-    LRUCacheGeneric<Integer, String> lru = new LRUCacheGeneric(5);
-    lru.put(1, "11");
-    lru.put(2, "11");
-    lru.put(3, "11");
-    lru.put(4, "11");
-    lru.put(5, "11");
+    LRUCache lru = new LRUCache(5);
+    lru.set(1, 11);
+    lru.set(2, 11);
+    lru.set(3, 11);
+    lru.set(4, 11);
+    lru.set(5, 11);
     System.out.println(lru.toString());
-    lru.put(6, "66");
+    lru.set(6, 66);
     lru.get(2);
-    lru.put(7, "77");
+    lru.set(7, 7);
     lru.get(4);
     System.out.println(lru.toString());
     System.out.println();
+
+    System.out.println();
+    System.out.println("===========================LRU 链表实现===========================");
+    lru = new LRUCache(1);
+    lru.set(2, 1);
+    lru.get(2);
+    System.out.println(lru.toString());
+    lru.set(3, 2);
+    lru.get(2);
+    lru.get(3);
+    System.out.println(lru.toString());
+    System.out.println();
+
+
+
   }
+  /*-----*/
+  /*-- Test Code ---*/
+  /*-----*/
 }
