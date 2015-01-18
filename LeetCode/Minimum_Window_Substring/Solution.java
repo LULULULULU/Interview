@@ -1,4 +1,11 @@
 // https://oj.leetcode.com/problems/minimum-window-substring/
+//
+// 一开始找到一个window包含所有的东西 得到start 和 end
+// 找到window以后开始将window的头start前移
+// 遇到不是targe的东西 || 是target的东西但是已经超过需要的数量的时候 继续前移 直到不满足条件为止
+// start停止以后检查现在这个end的条件下 window的大小 更新min 和 max
+// 之后降window的头start前移一位 意思从新的头开始继续找
+//
 
 import java.util.HashMap;
 public class Solution {
